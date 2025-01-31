@@ -1,0 +1,17 @@
+[project]
+name = "re-trakt"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["pytrakt>=4.1.0", "requests>=2.32.3"]
+
+[dependency-groups]
+dev = ["types-requests>=2.32.0.20241016"]
+
+[project.scripts]
+re-trakt = "re_trakt.main:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
