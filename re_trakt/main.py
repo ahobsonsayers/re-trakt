@@ -29,15 +29,15 @@ def get_auth_config() -> AuthConfig:
     auth_config.OAUTH_TOKEN = None
     auth_config.load()
 
-    print("\nApplication detail are required.")
-    print("You can obtain them from https://trakt.tv/oauth/applications\n")
-
-    if auth_config.APPLICATION_ID is None:
-        auth_config.APPLICATION_ID = input("Enter your Trakt application ID: ")
-    if auth_config.CLIENT_ID is None:
-        auth_config.CLIENT_ID = input("Enter your Trakt client ID: ")
-    if auth_config.CLIENT_SECRET is None:
-        auth_config.CLIENT_SECRET = input("Enter your Trakt client secret: ")
+    if not auth_config.APPLICATION_ID or not auth_config.CLIENT_ID or not auth_config.CLIENT_SECRET:
+        print("\nApplication detail are required.")
+        print("You can obtain them from https://trakt.tv/oauth/applications\n")
+        if auth_config.APPLICATION_ID is None:
+            auth_config.APPLICATION_ID = input("Enter your Trakt application ID: ")
+        if auth_config.CLIENT_ID is None:
+            auth_config.CLIENT_ID = input("Enter your Trakt client ID: ")
+        if auth_config.CLIENT_SECRET is None:
+            auth_config.CLIENT_SECRET = input("Enter your Trakt client secret: ")
 
     return auth_config
 
@@ -67,7 +67,8 @@ def remove_collected_movies() -> None:
         return
 
     num_movies = len(movies)
-    confirm = input(f"WARNING: This will permanently remove {num_movies} movies. Continue? (y/n): ")
+    print(f"WARNING: This will permanently remove {num_movies} movies from your collection.")
+    confirm = input("Continue? (y/n): ")
     if confirm.lower() != "y":
         print("Aborted.")
         return
